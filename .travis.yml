@@ -13,9 +13,7 @@ addons:
     - texlive-fonts-recommended
     - texlive-lang-italian
     - latex-xcolor
-    - texlive-full
-    - chktex
-    - latexmk
+    - latex-beamer   
 script:
 - make
 before_deploy:

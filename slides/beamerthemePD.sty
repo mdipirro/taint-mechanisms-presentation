@@ -1,0 +1,140 @@
+% UniPD presentation theme for beamer
+% Matteo Di Pirro <matteodipirro@gmail.com>
+% 
+% Adapted from UH Manoa theme by:
+% UH Manoa presentation theme for beamer
+% Jeff Delmerico <jeffdelmerico@gmail.com> 2012
+% https://github.com/jeffdelmerico/UH_Beamer_Theme.git
+
+\usepackage{graphicx}
+
+\ProvidesPackage{beamerthemePD}[2016/11/05 PD Beamer Theme]
+
+\def\backgroundfile{theme/unipd_bg}
+\def\plainbgfile{theme/unipd_bg}
+\newcommand\titlepic{theme/unipd-logo}
+
+\definecolor{UniPDRed}{cmyk}{0,1,0.96,0.28}
+
+\newlength{\@headerdist}
+\setlength{\@headerdist}{5mm}
+
+\newcommand{\address}
+{
+	BSc in Computer Science \\
+	Department of Mathematics \\
+}
+
+\mode<presentation>
+
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{date}{size=\large}
+\setbeamerfont{example text}{series=\bfseries}
+\setbeamerfont{section}{series=\bfseries}
+\setbeamercolor{structure}{fg=UniPDRed}
+\setbeamercolor{title}{fg=black}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{block title alerted}{series=\bfseries}
+\setbeamercolor{block title}{bg=UniPDRed,fg=UniPDRed!20!white}
+\setbeamercolor{block body}{bg=UniPDRed!15!white}
+\setbeamercolor{block title example}{bg=UniPDRed!60!white}
+\setbeamercolor{block body example}{bg=UniPDRed!20!white}
+\setbeamercolor{block title alerted}{bg=red!60!white,fg=black}
+\setbeamercolor{block body alerted}{bg=red!10!white}
+
+% disable navigation symbols 
+\setbeamertemplate{navigation symbols}{}
+
+% frame
+\setbeamercolor{frametitle}{fg=UniPDRed}
+\setbeamerfont{frametitle}{series=\mdseries,size=\Large}
+\setbeamerfont{framesubtitle}{series=\mdseries,size=\large}
+
+\setbeamertemplate{frametitle}
+{
+  \ifbeamer@plainframe
+  \else
+  	\vspace{0.5cm}
+    \textbf{\insertframetitle}
+    \vspace{.25cm}
+  \fi
+}
+
+% headline
+\setbeamercolor{headline}{fg=white}
+\setbeamertemplate{headline}{
+	\ifbeamer@plainframe
+	\else
+    	\vspace{8mm}
+    	\leavevmode\tiny%
+    	\hspace*{9.15cm}
+	   	\normalsize
+	\fi
+}
+
+% title page with UB image
+\setbeamertemplate{title page}{
+  \textbf{\LARGE{\inserttitle}}
+
+  \textbf{\large{\insertsubtitle}}
+  \vfill
+  \begin{columns}
+  \begin{column}{.45\textwidth}
+	\textbf{\insertauthor}\\[3mm]
+	\scriptsize
+    \address
+	\vspace*{0.25cm}
+	\insertshortinstitute
+	\vspace*{0.25cm}
+	\insertshortdate
+  \end{column}
+  \begin{column}{.45\textwidth}
+	\hfill\includegraphics[height=5cm,width=\linewidth,keepaspectratio]{\titlepic}
+  \end{column}
+  \end{columns}
+  \normalsize
+  \setbeamertemplate{footline}{}
+}
+
+% footer with name, date and page numbers
+\setbeamercolor{footline}{fg=UniPDRed}
+\setbeamertemplate{footline}{
+  \ifbeamer@plainframe
+  \else
+    \leavevmode\tiny%
+    \hspace*{2.0cm}%
+    \makebox[3cm][l]{\insertauthor}%
+    \makebox[3cm][l]{\insertdate}%
+	  \hfill
+	  \ifx\insertsection\empty
+	  \else
+    	\insertsection
+	  \fi
+	  \ifx\insertsubsection\empty
+	  \else
+	  	:\insertsubsection
+	  \fi
+	  \ifx\insertsubsubsection\empty
+	  \else
+	    :\insertsubsubsection
+	  \fi
+      \hfill\insertframenumber/\inserttotalframenumber\hspace{5mm}%
+    \vspace{3mm}%
+  \fi
+}
+
+% use UH slide layout template as background image
+\setbeamertemplate{background} {
+	\ifnum\thepage=1\relax%
+		\includegraphics[width=\paperwidth,height=\paperheight]{\plainbgfile}%
+	\else%
+  		\ifbeamer@plainframe%
+  	%\makebox[\textwidth]{\raisebox{0.675cm}[0pt][0pt]{\includegraphics[width=\paperwidth,height=\paperheight]{\plainbgfile}}}
+  		\else%
+    		\includegraphics[width=\paperwidth,height=\paperheight]{\backgroundfile}%
+  		\fi%
+	\fi%
+}
+
+\mode
+<all>

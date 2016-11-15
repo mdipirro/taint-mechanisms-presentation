@@ -1,16 +1,17 @@
 \begin{frame}
-	\frametitle{Dynamic analisys}
-	There are two essential types of dynamic analisys: \newline
+	\frametitle{Static and Dynamic Analysis}
 	\begin{itemize}
-		\item<2-> \textsc{\textbf{Dynamic Taint Analisys}}
-			\begin{itemize}
-				\item Tracks information flow between sources and sinks
-				\item Is the final value affected by user input?
-			\end{itemize}
-		\item<3-> \textsc{\textbf{Forward Symbolic Execution}}
-			\begin{itemize}
-				\item Allows us to reason about the behavior of a program on many different inputs
-				\item What input will make execution reach this line of code?
-			\end{itemize}
+		\item \textbf{Static Analysis}
+		\begin{itemize}
+			\item Examines a program's text to derive properties that hold for all executions
+			\item Program-centric analysis
+		\end{itemize}
+		\item \textbf{Dynamic Analysis}
+		\begin{itemize}
+			\item Examines the running program to derive properties hold for one or more executions
+			\item Detect violations of stated properties
+			\item Provide useful information about the behavior of the program
+			\item Input-centric analysis
+		\end{itemize}
 	\end{itemize}
 \end{frame}

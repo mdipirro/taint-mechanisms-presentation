@@ -1,0 +1,16 @@
+\begin{frame}
+	\frametitle{Dynamic Analysis}
+	There are two essential questions about the input analysis: \newline
+	\begin{enumerate}
+		\item<2-> \textbf{Is the final value affected by user input?}
+		\begin{itemize}
+			\item \textbf{Dynamic Taint Analysis}!
+			\item Tracks information flow between sources and sinks
+		\end{itemize}
+		\item<3-> \textbf{What input will make execution reach this line of code?}
+		\begin{itemize}
+			\item \textbf{Forward Symbolic Execution}
+			\item Allows us to reason about the behavior of a program on many different inputs
+		\end{itemize}
+	\end{enumerate}
+\end{frame}

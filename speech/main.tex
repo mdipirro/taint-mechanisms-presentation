@@ -1,0 +1,48 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../tesi.tex
+% !TEX spellcheck = it-IT
+
+\documentclass[final, 11pt, a4paper, titlepage]{article}
+\usepackage[italian, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{wallpaper}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage[
+	backend=biber,
+	citestyle=numeric-comp,
+	hyperref,
+	backref,
+	sorting=none
+]{biblatex}
+
+\input{config/bibliography}
+
+\newcommand{\university}{Università degli Studi di Padova}
+\newcommand{\dept}{Department of Mathematics}
+\newcommand{\faculty}{Master Degree in Computer Science}
+\newcommand{\myyear}{Academic Year 2016-2017}
+\renewcommand{\title}{All You Ever Wanted to Know About Dynamic Taint Analysis and Forward Symbolic Execution}
+\newcommand{\subtitle}{(but might have been afraid to ask)}
+\renewcommand{\author}{Matteo Di Pirro}
+\newcommand{\matr}{1154231}
+
+\begin{document}
+	\input{config/titlepage}
+	\tableofcontents
+	\newpage
+	\input{sections/introduction}
+	
+	
+	
+	%bibliography
+	\newpage
+	\nocite{*}
+	\printbibliography % equivale a dare un \printbibliography per ogni categoria
+	
+\end{document}

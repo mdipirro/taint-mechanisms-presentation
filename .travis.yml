@@ -16,6 +16,8 @@ addons:
     - latex-beamer   
     - texlive-bibtex-extra
     - biber
+    - amssymb
+    - bussproofs
 script:
 - make
 before_deploy:

@@ -15,6 +15,7 @@ addons:
     - latex-xcolor
     - latex-beamer   
     - texlive-bibtex-extra
+    - biber
 script:
 - make
 before_deploy:

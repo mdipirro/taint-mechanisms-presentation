@@ -1,4 +1,4 @@
-SUBDIRS := $(wildcard */.)
+SUBDIRS := speech slides
 
 all: $(SUBDIRS)
 $(SUBDIRS):

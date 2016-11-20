@@ -9,8 +9,11 @@
 
 \usepackage[absolute,overlay]{textpos}
 \usepackage{bussproofs}
-%% Use any fonts you like.
-%\usepackage{helvet}
+\usepackage{bm}
+\usepackage{helvet}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark,fit}
 
 \title{All You Ever Wanted to Know About Dynamic Taint Analysis and Forward Symbolic Execution}
 \subtitle{(but might have been afraid to ask)}
@@ -47,6 +50,10 @@
 
 \section{The language}
 \input{slides/language}
+
+\section{Dynamic Taint Analysis}
+\input{slides/taintAnalysis}
+\input{slides/policy}
 
 \appendix
 \makethanks

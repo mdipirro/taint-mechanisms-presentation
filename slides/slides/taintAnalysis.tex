@@ -1,0 +1,24 @@
+\begin{frame}%[fragile]
+	\frametitle{Dynamic Taint Analysis}
+	{\fontsize{0.8cm}{0.5cm}\selectfont
+		x = get\_input(\includegraphics[scale=0.05]{devil}) \\ \mbox{} \\
+		z = 42 \\ \mbox{} \\
+		y = x + z\\ \mbox{} \\
+		goto y\\
+	}
+	\begin{tikzpicture}[remember picture,overlay]
+	\node<2>[draw,minimum size=0.9cm,line width=1pt,white,circle,label=above:{\color{white}Tainted}] at (0.2,3.85) {};
+	\node<2>[white,align=center,font=\fontsize{0.8cm}{0.5cm}\selectfont] at (7.2,2) {x is derived from\\a tainted source};
+	
+	\node<3>[draw,minimum size=0.9cm,line width=1pt,white,circle,label=above:{\color{white}Untainted}](z) at (0.2,2.77) {};
+	\node<3>[white,align=center,font=\fontsize{0.8cm}{0.5cm}\selectfont] at (7.2,2) {z is a "static"\\constant};
+	%\node<3>[white,font=\fontsize{0.6cm}{0.5cm}\selectfont](q) at (7.2,2.15) {Untainted};
+	%\draw<3> [->,white,line width=1pt] (0.55,2.15) -- (q);
+	
+	\node<4->[draw,minimum size=0.9cm,line width=1pt,white,circle](y) at (0.2,1.7) {};
+	\node<4->[white,font=\fontsize{0.6cm}{0.5cm}\selectfont](q) at (7.2,1.4) {Is y taited?};
+	\draw<4-> [->,white,line width=1pt] (0.55,1.4) -- (q);
+	
+	\node<5>[white,align=center,font=\fontsize{0.8cm}{0.5cm}\selectfont] at (7.2,0) {It depends on the\\selected policy};
+	\end{tikzpicture}
+\end{frame}

@@ -1,0 +1,34 @@
+\section{Farward Symbolic Execution} 
+Forward symbolic execution allows us to reason about the behavior of a program on many different inputs at one time by building a logical formula that represents a program execution. Thus, reasoning about the behavior of the program can be reduced to the domain of logic.
+
+One of the advantages of forward symbolic execution is that it can be used to reason about more than one input at once. For instance, in this program, only one out of $2^{32}$ possible inputs will cause the program to take the true branch. Forward symbolic execution can reason about the program by considering two different input classes — inputs that take the true branch, and those that take the false branch.
+
+Creating a forward symbolic execution engine is conceptually a very simple process: take the operational semantics of the language and change the definition of a value to include symbolic expressions.
+
+\begin{lstlisting}
+x := 2 * get_input(src)
+if x - 5 == 14 then goto 3 else goto 4
+// catastrophic failure
+// normal behaviour
+\end{lstlisting}
+
+The primary difference between forward symbolic execution and regular execution is that when \texttt{get\_input(·)} is evaluated symbolically, it returns a symbol instead of a concrete value. When a new symbol is first returned, there are no constraints on its value; it represents any possible value. As a result, expressions involving symbols cannot be fully evaluated to a concrete value. Thus, our language must be modified, allowing a value to be a partially evaluated symbolic expression.
+
+Branches constrain the values of symbolic variables to the set of values that would execute the path. For example, in the program above, if the execution follows the \texttt{true} branch, then \texttt{x} must contain 19. Otherwise \texttt{x} contains a value which is not 19. Every \texttt{if then else} statement creates two partitions of the input domain. The strategy used for choosing paths can significantly impact the quality of the analysis.
+
+\subsection{Challenges and Opportunities}
+Unfortunately, by examining our formal definition of this intuition, we can find several instances where our analysis breaks down. 
+
+\subsubsection{Symbolic Memory Addresses}
+The \texttt{LOAD} and \texttt{STORE} rules evaluate the expression representing the memory address to a value, and then get or set the corresponding value at that address in the memory context µ. When executing concretely, that value will be an integer that references a particular memory cell.
+
+When executing symbolically, however, we must decide what to do when a memory reference is an expression instead of a concrete number. The symbolic memory address problem arises whenever an address referenced in a load or store operation is an expression derived from user input instead of a concrete value.
+
+When we load from a symbolic expression, a sound strategy is to consider it a load from any possible satisfyingassignment for the expression. Similarly, a store to a symbolic address could overwrite any value for a satisfying assignment to the expression. Symbolic addresses are common in real programs, e.g., in the form of table lookups dependent on user input. Symbolic memory addresses can lead to aliasing issues even along a single execution path. A potential address alias occurs when two memory operations refer to the same address.
+
+\begin{lstlisting}
+store (addr1, v) 
+z = load (addr2)
+\end{lstlisting}
+
+If addr1 = addr2, then addr1 and addr2 are aliased and the value loaded will be the value v. If addr1 6= addr2, then v will not be loaded. In the worst case, addr1 and addr2 are expressions that are sometimes aliased and sometimes not.

@@ -1,0 +1,24 @@
+\begin{frame}[fragile]
+	\frametitle{Forward Symbolic Execution}
+	\begin{itemize}
+		\item Reasoning about the behavior of the program can be reduced to the domain of logic!
+		\item Creating a forward symbolic execution engine is \textbf{conceptually} a very simple process
+	\end{itemize}
+	\lstset{language=C++,
+		basicstyle=\color{white}\ttfamily,
+		commentstyle=\color{green}\ttfamily,
+		%		numbers=left
+	}
+	\begin{lstlisting}
+	x := 2 * get_input(src)
+	if x - 5 == 14 then goto 3 else goto 4
+	// line 3: catastrophic failure
+	// line 4: normal behaviour
+	\end{lstlisting}
+	\only<2->{
+		\begin{itemize}
+			\item \texttt{get\_input(src)} now returns a \textbf{symbol} instead of a concrete value
+			\item Expressions involving symbols \textbf{cannot} be fully evaluated to a concrete value
+		\end{itemize}
+	}
+\end{frame}

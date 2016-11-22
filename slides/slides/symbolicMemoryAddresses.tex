@@ -1,0 +1,19 @@
+\begin{frame}
+	\frametitle{Symbolic Memory Addresses}
+	\begin{itemize}
+		\item The \texttt{LOAD} and \texttt{STORE} rules evaluate the expression representing the memory address to a value
+		\begin{itemize}
+			\item  that value must be a \textbf{non-negative integer} that references a particular memory cell
+		\end{itemize}
+		\item What are we supposed to do if the address referenced operation is an expression derived from user input?
+		\begin{itemize}
+			\item \textbf{Symbolic Memory Address problem}
+		\end{itemize}
+		\item \textbf{Sound} strategy: consider the instruction for any possible satisfying assignment 
+		\item<2-> \only<2->{
+			There's even worse: \textbf{aliasing} \\
+			\texttt{\textbf{store} (addr1, v) \\
+			z = \textbf{load} (addr2)}
+		}
+	\end{itemize}
+\end{frame}

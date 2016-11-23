@@ -1,0 +1,20 @@
+\begin{frame}
+	\frametitle{Memory Address Problems}
+	What are we supposed to do if a referenced address of an expression is derived from user input?
+	\begin{itemize}
+		\item \textbf{Symbolic Memory Address}
+		\begin{itemize}
+			\item The \texttt{LOAD} and \texttt{STORE} rules evaluate the expression representing the memory address to a \textbf{non-negative integer} value
+		\end{itemize}
+		\item \textbf{Symbolic Jumps}
+		\begin{itemize}
+			\item The \texttt{GOTO} rule requires the address expression to evaluate to a concrete value
+		\end{itemize}
+		\item<2-> Solutions
+		\begin{itemize}
+			\item Concolic testing
+			\item SMT (\textbf{S}atisfiability \textbf{M}odulo \textbf{T}heories) solvers
+			\item Static and alias analysis
+		\end{itemize}
+	\end{itemize}
+\end{frame}

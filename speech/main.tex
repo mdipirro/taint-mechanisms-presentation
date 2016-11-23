@@ -16,6 +16,7 @@
 \usepackage{amssymb}
 \usepackage{bussproofs}
 \usepackage{listing}
+\usepackage{bm}
 \usepackage[
 	backend=biber,
 	citestyle=numeric-comp,
@@ -23,6 +24,8 @@
 	backref,
 	sorting=none
 ]{biblatex}
+
+\graphicspath{{images/}}
 
 \input{config/bibliography}
 
@@ -40,11 +43,8 @@
 	\tableofcontents
 	\newpage
 	\input{sections/introduction}
-	\newpage
 	\input{sections/language}
-	\newpage
 	\input{sections/taintAnalysis}
-	\newpage
 	\input{sections/forwardSymbolicExecution}
 	
 	

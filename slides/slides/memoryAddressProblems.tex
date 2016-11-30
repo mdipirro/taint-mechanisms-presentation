@@ -1,16 +1,12 @@
 \begin{frame}
 	\frametitle{Memory Address Problems}
-	What are we supposed to do if a referenced address of an expression is derived from user input?
 	\begin{itemize}
-		\item \textbf{Symbolic Memory Address}
+		\item What are we supposed to do if a referenced address is derived from user input?
 		\begin{itemize}
-			\item The \texttt{LOAD} and \texttt{STORE} rules evaluate the expression representing the memory address to a \textbf{non-negative integer} value
+			\item \texttt{LOAD}, \texttt{STORE} $\rightarrow$ \textbf{Symbolic Memory Address}
+			\item \texttt{GOTO} $\rightarrow$ \textbf{Symbolic Jumps}
 		\end{itemize}
-		\item \textbf{Symbolic Jumps}
-		\begin{itemize}
-			\item The \texttt{GOTO} rule requires the address expression to evaluate to a concrete value
-		\end{itemize}
-		\item<2-> Solutions
+		\item Solutions
 		\begin{itemize}
 			\item Concolic testing
 			\item SMT (\textbf{S}atisfiability \textbf{M}odulo \textbf{T}heories) solvers

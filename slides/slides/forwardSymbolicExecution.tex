@@ -1,8 +1,8 @@
 \begin{frame}[fragile]
 	\frametitle{Forward Symbolic Execution}
 	\begin{itemize}
-		\item Reasoning about the behavior of the program can be reduced to the domain of logic!
-		\item Creating a forward symbolic execution engine is \textbf{conceptually} a very simple process
+		\item We can reason about the behavior of a program using the logic...
+		\item ... and it is \textbf{conceptually} a very simple process
 	\end{itemize}
 	\lstset{language=C++,
 		basicstyle=\color{white}\ttfamily,
@@ -18,7 +18,7 @@
 	\only<2->{
 		\begin{itemize}
 			\item \texttt{get\_input(src)} now returns a \textbf{symbol} instead of a concrete value
-			\item Expressions involving symbols \textbf{cannot} be fully evaluated to a concrete value
+			\item But now expressions \textbf{cannot} be fully evaluated to a concrete value
 		\end{itemize}
 	}
 \end{frame}

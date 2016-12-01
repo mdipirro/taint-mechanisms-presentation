@@ -1,5 +1,16 @@
 \section{Dynamic Taint Analysis}
-The purpose of dynamic taint analysis is to track information flow between sources and sinks. Any program value whose computation depends on data derived from a taint source is considered tainted (denoted \textbf{T}). Any other value is considered untainted (denoted \textbf{F}). We can represent this taint marker with a single bit.
+The purpose of dynamic taint analysis is to track information flow between sources and sinks. Any program value whose computation depends on data derived from a taint source is considered tainted (denoted \textbf{T}). Any other value is considered untainted (denoted \textbf{F}). We can represent this taint marker with a single bit: in this way we can perform a lot of logical operation over the taint mark in an efficient way.
+
+\begin{lstlisting}
+x := get_input(devil)
+z := 42
+y := x + z
+goto y
+\end{lstlisting}
+
+On one hand \texttt{x} contains a tainted value because it comes from outside: we don't really care from where for now, is enough to that is something external. It might come from a user, the network, a database or everything else. On the other hand \texttt{z} contains a perfectly legal value, a constant. Thus \texttt{z} is not tainted. But what about \texttt{y}? Well, actually there isn't a right answer: \texttt{y} can be tainted or not, accordingly to the selected policy. With a basic and simple policy, which always propagates the taint, \texttt{y} will be tainted, but with different policies it might not. \\
+
+But what's a policy?
 
 \subsection{Policies}
 A taint policy \textbf{P} determines exactly how taint flows as a program executes, what sorts of operations introduce new taint, and what checks are performed on tainted values. The specifics of the taint policy may differ depending upon the taint analysis application, e.g., taint tracking policies for unpacking malware may be different than attack detection.

@@ -1,0 +1,36 @@
+\begin{frame}
+	\frametitle{A small comparison}
+	\only<1>{
+		\begin{textblock*}{5cm}(0cm,4cm)
+			\fontsize{20pt}{12pt}\selectfont\centering
+			Dynamic\\Taint\\Analysis
+		\end{textblock*}
+		
+		\begin{textblock*}{5cm}(4cm,4cm)
+			\centering
+			\fontsize{15pt}{12pt}\selectfont
+			? \\
+			\fontsize{30pt}{12pt}\selectfont
+			$\subseteq$ \\
+			$\supseteq$
+		\end{textblock*}
+		
+		\begin{textblock*}{5cm}(8cm,4cm)
+			\fontsize{20pt}{12pt}\selectfont\centering
+			Forward\\Symbolic\\Execution
+		\end{textblock*}
+	}
+	\only<2>{
+		\vspace{-1cm}
+		\centering
+		\includegraphics[scale=0.1]{sets} \\
+		Dynamic taint analysis analyzes only \textit{\textbf{feasible}} paths
+		\fontsize{18pt}{12pt}\selectfont
+		\begin{textblock*}{5cm}(3cm,3.6cm)
+			$\mathcal{DTA}$
+		\end{textblock*}
+		\begin{textblock*}{5cm}(4.6cm,2cm)
+			$\mathcal{FSE}$
+		\end{textblock*}
+	}
+\end{frame}

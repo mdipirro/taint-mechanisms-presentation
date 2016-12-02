@@ -1,0 +1,19 @@
+\section{Conclusions}
+\subsection{Comparison}
+In my opinion, symbolic execution uses a kind of taint analysis to construct path constraints. Symbolic execution also employs an SMT solver to generate concrete values for variables and/or inputs, such that a certain path constraint is satisfied. Since taint analysis does not employ an SMT solver, I would say it is not a kind of symbolic execution.
+
+Furthermore, dynamic analysis can also reason about \textit{feasible} path, while symbolic execution builds constraint and reasons about the whole program by reducing it in the domain of logic.
+
+Thus, in my opinion, taint analysis is a \textbf{subset} of symbolic execution.
+
+\subsection{Last things}
+The number of security applications utilizing these two techniques is enormous. Example security research areas employing either dynamic taint analysis, forward symbolic execution, or a mix of the two, are the following:
+\begin{itemize}
+	\item \textbf{Unknown Vulnerability Detection}: Dynamic taint analysis can look for misuses of user input during an execution. For example, dynamic taint analysis can be used to prevent code injection attacks by monitoring whether user input is executed;
+	\item \textbf{Malware Analysis}: Taint analysis and forward symbolic execution are used to analyze how information flows through a malware binary, explore trigger-based behavior and detect emulators;
+	\item \textbf{Test Case Generation}: Taint analysis and forward symbolic execution are used to automatically generate inputs to test programs, and can generate inputs that cause two implementations of the same protocol to behave differently;
+	\item \textbf{Automatic Network Protocol Understanding}: Dynamic taint analysis has been used to automatically understand the behavior of network protocols.
+\end{itemize}
+
+However, recalling the limitations and the problems with both analysis I would say that they have to be used carefully. Their effectiveness depends on the specific application.
+

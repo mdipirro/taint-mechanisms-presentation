@@ -2,3 +2,4 @@ This repository contains the slides and the speech draft for the presentation ab
 
 The lecture was held in the first semester of the Academic Year 2016/2017 as part of the "Realiable Systems" area of the [Master Degree] (http://informatica.math.unipd.it/laureamagistrale/index.html) in Computer Science.
 
+[![Build Status](https://travis-ci.com/mdipirro/taint-mechanisms-presentation.svg?token=7LSQJy3DGkLbRMBT5MDM&branch=master)](https://travis-ci.com/mdipirro/taint-mechanisms-presentation)

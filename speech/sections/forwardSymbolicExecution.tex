@@ -1,4 +1,4 @@
-\section{Farward Symbolic Execution} 
+\section{Forward Symbolic Execution} 
 Forward symbolic execution allows us to reason about the behavior of a program on many different inputs at one time by building a logical formula that represents a program execution. Thus, reasoning about the behavior of the program can be reduced to the domain of logic.
 
 One of the advantages of forward symbolic execution is that it can be used to reason about more than one input at once. For instance, in this program, only one out of $2^{32}$ possible inputs will cause the program to take the true branch. Forward symbolic execution can reason about the program by considering two different input classes — inputs that take the true branch, and those that take the false branch.

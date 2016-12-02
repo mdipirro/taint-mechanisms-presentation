@@ -1,0 +1,26 @@
+\begin{frame}[noframenumbering]
+	\frametitle{SimpIL Operational Semantic}
+	\begin{itemize}		
+		\item \textbf{Each} statement rule of the operational semantic is like:		
+	\end{itemize}		
+	\begin{prooftree}		
+		\AxiomC{computation}		
+		\UnaryInfC{$\textless$current state$\textgreater$, stmt $\rightarrow$ $\textless$end state$\textgreater$, stmt’}		
+	\end{prooftree}		
+	\begin{itemize}		
+		\item The \texttt{state} is composed of: \newline		
+	\begin{minipage}{0.5\textwidth}		
+		\begin{itemize}		
+			\item Program statements (\bm{$\sum$})		
+			\item Current memory state (\bm{$\mu$})		
+			\item Current values for variables (\bm{$\Delta$})		
+		\end{itemize}		
+	\end{minipage}		
+	\begin{minipage}{0.4\textwidth}		
+		\begin{itemize}		
+			\item Program counter (\textbf{\textit{pc}})		
+			\item Current statement (\textit{\textbf{i}})		
+		\end{itemize}		
+	\end{minipage}		
+\end{itemize}
+\end{frame}

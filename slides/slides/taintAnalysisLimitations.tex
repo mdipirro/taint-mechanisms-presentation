@@ -10,12 +10,17 @@
 			\begin{itemize}
 				\item \textbf{Time of detection} vs \textbf{Time of attack}
 			\end{itemize}
-			\item \textbf{Sanitization problem}
+			\item \textbf{Sanitization problem} \\
+					\only<2>{
+						\begin{center}
+							{\color[rgb]{1,1,1} \texttt{b := a $\oplus$ a}}
+						\end{center}
+					}
 			\item Pure dynamic taint analysis considers \textbf{data flows}...
-			\item<2-> ...but it ignores \textbf{control-flows}
+			\item<3-> ...but it ignores \textbf{control-flows}	
 			\begin{itemize}
-				\item<2-> What about different security policies for different I/O channels?
-					  \newline $\rightarrow$ \textbf{Static analysis}
+				\item<3-> What about different security policies for different I/O channels?
+					\newline $\rightarrow$ \textbf{Static analysis}
 			\end{itemize}
 		\end{itemize}
 	\end{textblock*}

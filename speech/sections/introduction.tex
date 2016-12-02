@@ -13,11 +13,3 @@ Dynamic taint analysis runs a program and observes which computations are affect
 \subsubsection{What input will make execution reach this line of code? $\Rightarrow$ Forward Symbolic Execution}
 Dynamic forward symbolic execution automatically builds a logical formula describing a program execution path, which reduces the problem of reasoning about the execution to the domain of logic.
 
-\subsection{Applications}
-The number of security applications utilizing these two techniques is enormous. Example security research areas employing either dynamic taint analysis, forward symbolic execution, or a mix of the two, are the following:
-\begin{itemize}
-	\item \textbf{Unknown Vulnerability Detection}: Dynamic taint analysis can look for misuses of user input during an execution. For example, dynamic taint analysis can be used to prevent code injection attacks by monitoring whether user input is executed;
-	\item \textbf{Automatic Input Filter Generation}: Forward symbolic 	execution can be used to automatically generate input filters that detect and remove exploits from the input stream. Filters generated in response to actual executions are attractive because they provide strong accuracy guarantees;
-	\item \textbf{Malware Analysis}: Taint analysis and forward symbolic execution are used to analyze how information flows through a malware binary, explore trigger-based behavior and detect emulators;
-	\item \textbf{Test Case Generation}: Taint analysis and forward symbolic execution are used to automatically generate inputs to test programs, and can generate inputs that cause two implementations of the same protocol to behave differently.
-\end{itemize}

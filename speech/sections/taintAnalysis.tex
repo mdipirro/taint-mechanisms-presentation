@@ -8,7 +8,7 @@ y := x + z
 goto y
 \end{lstlisting}
 
-On one hand \texttt{x} contains a tainted value because it comes from outside: we don't really care from where for now, is enough to that is something external. It might come from a user, the network, a database or everything else. On the other hand \texttt{z} contains a perfectly legal value, a constant. Thus \texttt{z} is not tainted. But what about \texttt{y}? Well, actually there isn't a right answer: \texttt{y} can be tainted or not, accordingly to the selected policy. With a basic and simple policy, which always propagates the taint, \texttt{y} will be tainted, but with different policies it might not. \\
+On one hand \texttt{x} contains a tainted value because it comes from outside: we don't really care from where for now, is enough to know that is something external. It might come from a user, the network, a database or everything else. On the other hand \texttt{z} contains a perfectly legal value, a constant. Thus \texttt{z} is not tainted. But what about \texttt{y}? Well, actually there isn't a right answer: \texttt{y} can be tainted or not, accordingly to the selected policy. With a basic and simple policy, which always propagates the taint, \texttt{y} will be tainted, but with different policies it may not. \\
 
 But what's a policy?
 
@@ -17,9 +17,9 @@ A taint policy \textbf{P} determines exactly how taint flows as a program execut
 
 A taint policy specifies three properties: how new taint is introduced to a program, how taint propagates as instructions execute, and how taint is checked during execution:
 \begin{itemize}
-	\item \textbf{Taint Introduction}: taint introduction rules specify how taint is introduced into a system. The typical convention is to initialize all variables, memory cells, etc. as untainted. In SimpIL, we only have a single source of user input: the get\_input(·) call. A taint policy will also typically distinguish between different input sources. For example, an Internet-facing network input source may always introduce taint, while a file descriptor that reads from a trusted configuration file may not;
-	\item \textbf{Taint Propagation}: taint propagation rules specify the taint status for data derived from tainted or untainted operands. Since taint is a bit, propositional logic is usually used to express the propagation policy, e.g., t1 $\lor$ t2 indicates the result is tainted if t1 is tainted or t2 is tainted;
-	\item \textbf{Taint Checking}: taint status values are often used to determine the runtime behavior of a program, e.g., an attack detector may halt execution if a jump target address is tainted. We can perform this check adding the policy to the operational semantics. Thus, we compute a rule iff the status is correct according to the policy.
+	\item \textbf{Taint Introduction}: taint introduction rules specify how taint is introduced into a system. The typical convention is to initialize all variables, memory cells, etc. as untainted. A taint policy will also typically distinguish between different input sources. For example, an Internet-facing network input source may always introduce taint, while a file descriptor that reads from a trusted configuration file may not;
+	\item \textbf{Taint Propagation}: taint propagation rules specify the taint status for data derived from tainted or untainted operands. Since taint is a bit, propositional logic is usually used to express the propagation policy;
+	\item \textbf{Taint Checking}: taint status values are often used to determine the runtime behavior of a program, e.g., an attack detector may halt execution if a jump target address is tainted. 
 \end{itemize}
 
 Two types of errors can occur in dynamic taint analysis, according to the selected policy. First, dynamic taint analysis can mark a value as tainted when it is not derived from a taint source. We say that such a value is \textbf{overtainted}. For example, in an attack detection application overtainting will typically result in reporting an attack when no attack occurred. Second, dynamic taint analysis can miss the information flow from a source to a sink, which we call \textbf{undertainting}. In the attack detection scenario, undertainting means the system missed a real attack. A dynamic taint analysis system is \textbf{precise} if no undertainting or overtainting occurs.
@@ -31,9 +31,27 @@ TaintDroid automatically labels (taints) data from privacy-sensitive sources and
 
 Tracking incurs a runtime overhead of less than 14\% for a CPU-bound microbenchmark. More importantly, interactive third-party applications can be monitored with negligible perceived latency.
 
+\subsection{Malware Detection}
+Pointer tainting has been used for two main purposes: detection of privacy-breaching malware (e.g., trojan keyloggers obtaining the characters typed by a user), and detection of memory corruption attacks against non-control data (e.g., a buffer overflow that modifies a user’s privilege level). In both of these cases the attacker does not modify control data such as stored branch targets, so the control flow of the target program does not change. Phrased differently, in terms of instructions executed, the program behaves ''normally''. As a result, these attacks are exceedingly difficult to detect. Pointer tainting is considered one of the only methods for detecting them in unmodified binaries. Unfortunately, almost all of the incarnations of pointer tainting are flawed.
+
+Pointer tainting could be defined as a kind of dynamic information flow tracking which marks the origin of data by way of a taint bit in a shadow memory that is inaccessible to software. By tracking the propagation of tainted data through the system (e.g., when tainted data is copied, but also when tainted pointers are dereferenced), we see whether any value derived from data from a tainted origin ends up in places where it should never be stored.
+
+Pointer tainting is very popular because:
+\begin{itemize}
+	\item it can be applied to unmodified software without recompilation;
+	\item according to its advocates, it incurs hardly (if any) false positives
+	\item it is assumed to be one of the only (if not the only) reliable techniques capable of detecting both control-diverting and non-control-diverting attacks without requiring recompilation.
+\end{itemize}
+
+Conceptually is a simple process. We try to detect whether a new application \textit{X} is malicious or not, by running it in a system and analyzing it using pointer tainting. Sensitive data, such as keystrokes that are unrelated to \textit{X} (e.g., a password you type in when logging to a remote machine) are tagged tainted. If at some point, any byte in the address space of \textit{X} is tainted, it means that the sensitive data has leaked into \textit{X}, which should not happen. Thus, the program must be malicious and is probably a keylogger.
+
+However, for privacy-breaching malware detection, the method is flawed.
+
 \subsection{Limitations}
 \subsubsection{Sanitization Problem}
-Dynamic taint analysis as described only adds taint; it never removes it. This leads to the problem of \textit{taint spread}: as the program executes, more and more values become tainted, often with less and less taint precision. A significant challenge in taint analysis is to identify when taint can be removed from a value. We call this the taint \textbf{sanitization problem}. One common example where we wish to sanitize is when the program computes constant functions, like \texttt{b := a $\oplus$ a}. Since \texttt{b} will always equal zero, its value does not depend upon \texttt{a}. A default taint analysis policy, however, will identify \texttt{b} as tainted whenever \texttt{a} is tainted.
+Dynamic taint analysis as described only adds taint; it never removes it. This leads to the problem of \textit{taint spread}: as the program executes, more and more values become tainted, often with less and less taint precision. This is why in real world pointer tainting for malware detection is almost unusable.
+
+A significant challenge in taint analysis is to identify when taint can be removed from a value. We call this the taint \textbf{sanitization problem}. One common example where we wish to sanitize is when the program computes constant functions, like \texttt{b := a $\oplus$ a}. Since \texttt{b} will always equal zero, its value does not depend upon \texttt{a}. A default taint analysis policy, however, will identify \texttt{b} as tainted whenever \texttt{a} is tainted.
 
 \subsubsection{Control Flow}
 Dynamic taint analysis tracks data flow taint. However, information flow can also occur through control dependencies. Informally, a statement \texttt{s2} is control-dependent on statement \texttt{s1} if \texttt{s1} controls whether or not \texttt{s2} will execute. Consider the following example:

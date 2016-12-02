@@ -23,3 +23,28 @@ A taint policy specifies three properties: how new taint is introduced to a prog
 \end{itemize}
 
 Two types of errors can occur in dynamic taint analysis, according to the selected policy. First, dynamic taint analysis can mark a value as tainted when it is not derived from a taint source. We say that such a value is \textbf{overtainted}. For example, in an attack detection application overtainting will typically result in reporting an attack when no attack occurred. Second, dynamic taint analysis can miss the information flow from a source to a sink, which we call \textbf{undertainting}. In the attack detection scenario, undertainting means the system missed a real attack. A dynamic taint analysis system is \textbf{precise} if no undertainting or overtainting occurs.
+
+\subsection{TaintDroid}
+TaintDroid is an extension to the Android OS that tracks the flow of privacy sensitive data through third-party applications. TaintDroid assumes that downloaded, third-party applications are not trusted, and monitors in real time how these applications access and manipulate users' personal data. The primary goals are to detect when sensitive data leaves the system via untrusted applications and to facilitate analysis of applications by phone users or external security services.
+
+TaintDroid automatically labels (taints) data from privacy-sensitive sources and transitively applies labels as sensitive data propagates through program variables, files, and interprocess messages. When tainted data are transmitted over the network, or otherwise leave the system, TaintDroid logs the data’s labels, the application responsible for transmitting the data, and the data’s destination. Such real time feedback gives users and security services greater insight into what mobile applications are doing, and can potentially identify misbehaving applications. 
+
+Tracking incurs a runtime overhead of less than 14\% for a CPU-bound microbenchmark. More importantly, interactive third-party applications can be monitored with negligible perceived latency.
+
+\subsection{Limitations}
+\subsubsection{Sanitization Problem}
+Dynamic taint analysis as described only adds taint; it never removes it. This leads to the problem of \textit{taint spread}: as the program executes, more and more values become tainted, often with less and less taint precision. A significant challenge in taint analysis is to identify when taint can be removed from a value. We call this the taint \textbf{sanitization problem}. One common example where we wish to sanitize is when the program computes constant functions, like \texttt{b := a $\oplus$ a}. Since \texttt{b} will always equal zero, its value does not depend upon \texttt{a}. A default taint analysis policy, however, will identify \texttt{b} as tainted whenever \texttt{a} is tainted.
+
+\subsubsection{Control Flow}
+Dynamic taint analysis tracks data flow taint. However, information flow can also occur through control dependencies. Informally, a statement \texttt{s2} is control-dependent on statement \texttt{s1} if \texttt{s1} controls whether or not \texttt{s2} will execute. Consider the following example:
+
+\begin{lstlisting}
+x := get_input (src)
+if x == 1 then goto 3 else goto 4
+y := 1
+z : = 42
+\end{lstlisting}
+
+If we do not compute control dependencies, you cannot determine control-flow based taint, and the overall analysis may undertaint. Unfortunately, pure dynamic taint analysis cannot compute control dependencies, thus cannot accurately determine control-flow-based taint. The reason is simple: reasoning about control dependencies requires reasoning about multiple paths, and dynamic analysis executes on a single path at a time.
+
+Another thing that we would discover is whether sensible information, like user-provided passwords, flow to insecure output channel. Generally we want that any secret information does not flow to a public output channel, but we might be interested to allow only a specific channel to receive only a specific type of secret information, and we would discover every other violation: in brief, we want to specify declassification policies, but with dynamic analysis we can't, or it's very difficult to do so. Thus, in such cases, static analysis is required.

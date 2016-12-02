@@ -4,24 +4,19 @@
 		\includegraphics[scale=0.25]{controlflow}
 	\end{textblock*}
 	
-	\begin{textblock*}{8cm}(4.5cm,3cm)
+	\begin{textblock*}{8cm}(4.5cm,2cm)
 		\begin{itemize}
-			\item Undertainting and overtainting are nearly \textbf{unavoidable}!
-			\begin{itemize}
-				\item \textbf{Time of detection} vs \textbf{Time of attack}
-			\end{itemize}
-			\item \textbf{Sanitization problem} \\
-					\only<2>{
+			\item \textbf{Sanitization problem} 
+					\only<2->{
 						\begin{center}
 							{\color[rgb]{1,1,1} \texttt{b := a $\oplus$ a}}
 						\end{center}
 					}
-			\item Pure dynamic taint analysis considers \textbf{data flows}...
-			\item<3-> ...but it ignores \textbf{control-flows}	
-			\begin{itemize}
-				\item<3-> What about different security policies for different I/O channels?
-					\newline $\rightarrow$ \textbf{Static analysis}
-			\end{itemize}
+			\item<3-> Pure dynamic taint analysis considers \textbf{data flows}... \newline
+		  ...but it ignores \textbf{control-flows} \newline
+					{\color[rgb]{1,1,1} \texttt{x := get\_input(src)\\if x = 1 then goto 3 else goto 4\\y := 1\\z := 42}}
+			\item<4-> What about different security policies for different I/O channels? \newline
+			\only<5->{$\rightarrow$ \textbf{Static analysis}}
 		\end{itemize}
 	\end{textblock*}
 \end{frame}

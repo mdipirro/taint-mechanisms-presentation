@@ -88,26 +88,26 @@
 
 % title page with UB image
 \setbeamertemplate{title page}{
-  \textbf{\LARGE{\inserttitle}}
-
-  \textbf{\large{\insertsubtitle}}
-  \vfill
-  \begin{columns}
-  \begin{column}{.45\textwidth}
-	\textbf{\insertauthor}\\[3mm]
-	\scriptsize
-    \address
-	\vspace*{0.25cm}
-	\insertshortinstitute
-	\vspace*{0.25cm}
-	\insertshortdate
-  \end{column}
-  \begin{column}{.45\textwidth}
-	\hfill\includegraphics[scale=0.8,keepaspectratio]{\titlepic}
-  \end{column}
-  \end{columns}
-  \normalsize
-  \setbeamertemplate{footline}{}
+	\textbf{\LARGE{\inserttitle}}
+	\vspace{1cm}
+	\textbf{\large{\insertsubtitle}}
+	\vfill
+	\begin{columns}
+		\begin{column}{.45\textwidth}
+			\textbf{\insertauthor}\\[3mm]
+			\scriptsize
+			\address
+			\vspace*{0.25cm}
+			\insertshortinstitute
+			\vspace*{0.25cm}
+			\insertshortdate
+		\end{column}
+		\begin{column}{.45\textwidth}
+			\hfill\includegraphics[scale=0.8,keepaspectratio]{\titlepic}
+		\end{column}
+	\end{columns}
+	\normalsize
+	\setbeamertemplate{footline}{}
 }
 
 % footer with name, date and page numbers

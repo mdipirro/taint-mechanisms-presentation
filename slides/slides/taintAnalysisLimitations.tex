@@ -14,7 +14,7 @@
 					}
 			\item<3-> Pure dynamic taint analysis considers \textbf{data flows}... \newline
 		  ...but it ignores \textbf{control-flows} \newline
-					{\color[rgb]{1,1,1} \texttt{x := get\_input(src)\\if x = 1 then goto 3 else goto 4\\y := 1\\z := 42}}
+					{\color[rgb]{1,1,1} \texttt{x := get\_input(src)\\if x == 1 then goto 3 else goto 4\\y := 1\\z := 42}}
 			\item<4-> What about different security policies for different I/O channels? \newline
 			\only<5->{$\rightarrow$ \textbf{Static analysis}}
 		\end{itemize}

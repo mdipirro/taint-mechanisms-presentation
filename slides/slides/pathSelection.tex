@@ -1,11 +1,11 @@
 \begin{frame}
 	\frametitle{Path Selection and Performance}
 	\begin{itemize}
-		\item Every conditional jump we must decide what path to follow first
+		\item For every conditional jump we must decide what path to follow first
 		\begin{itemize}
 			\item But some path may never terminate \\
 			\only<2->{
-				\centering\texttt{while ($3^{n}$ + $4^{n}$ == $5^{n}$) $\{$n++; ...$\}$}
+				\centering{\color[rgb]{1,1,1}\texttt{while ($3^{n}$ + $4^{n}$ == $5^{n}$) $\{$n++; ...$\}$}}
 			}
 		\end{itemize}
 		\item Exponential blowup due to branches
@@ -17,7 +17,7 @@
 		\begin{itemize}
 			\item Solutions
 			\begin{itemize}
-				\item \textbf{Path Selection Heuristic}
+				\item \textbf{Path Selection Heuristics}
 				\begin{itemize}
 					\item Concolic Testing
 					\item Depth-First or Random Search

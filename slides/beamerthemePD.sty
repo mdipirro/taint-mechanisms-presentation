@@ -130,7 +130,10 @@
 	  \else
 	    :\insertsubsubsection
 	  \fi
+	  \ifx\turnOffNumbers\undefined
       \hfill\insertframenumber/\inserttotalframenumber\hspace{5mm}%
+      \else
+      \fi
     \vspace{3mm}%
   \fi
 }

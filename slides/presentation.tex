@@ -24,10 +24,13 @@
 
 \begin{document}
 
-\begin{frame}
+\newcommand{\turnOffNumbers}{true} %hide frame numbers in footer
+
+\begin{frame}[noframenumbering]
 \titlepage
 \end{frame}
 
+\let\turnOffNumbers\empty
 \begin{frame}
 	\frametitle{Outline}
 	\tableofcontents
@@ -54,7 +57,7 @@
 
 \appendix
 \makethanks
-\newcommand{\turnOffNumbers}{} %hide frame numbers in footer
+\renewcommand{\turnOffNumbers}{true} %hide frame numbers in footer
 \input{slides/extra/simpilGrammar}
 \input{slides/extra/operationalSemantic}
 \input{slides/extra/memoryAddressProblems}

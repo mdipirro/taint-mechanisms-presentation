@@ -2,7 +2,7 @@
 \subsection{Comparison}
 In my opinion, symbolic execution uses a kind of taint analysis to construct path constraints. Symbolic execution also employs an SMT solver to generate concrete values for variables and/or inputs, such that a certain path constraint is satisfied. Since taint analysis does not employ an SMT solver, I would say it is not a kind of symbolic execution.
 
-Furthermore, dynamic analysis can also reason about \textit{feasible} path, while symbolic execution builds constraint and reasons about the whole program by reducing it in the domain of logic.
+Furthermore, dynamic analysis can only reason about \textit{feasible} path, while symbolic execution builds constraint and reasons about the whole program by reducing it in the domain of logic.
 
 Thus, in my opinion, taint analysis is a \textbf{subset} of symbolic execution.
 

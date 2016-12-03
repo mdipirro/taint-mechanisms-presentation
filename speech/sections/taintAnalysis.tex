@@ -32,16 +32,16 @@ TaintDroid automatically labels (taints) data from privacy-sensitive sources and
 Tracking incurs a runtime overhead of less than 14\% for a CPU-bound microbenchmark. More importantly, interactive third-party applications can be monitored with negligible perceived latency.
 
 \subsection{Malware Detection}
-Pointer tainting could be defined as a kind of dynamic information flow tracking which marks the origin of data by way of a taint bit in a shadow memory that is inaccessible to software. It has been used for two main purposes: detection of privacy-breaching malware (e.g., keyloggers), and detection of memory corruption attacks against non-control data (e.g., a buffer overflow that modifies a user’s privilege level). In both of these cases the attacker does not modify the control flow of the target program. Phrased differently, in terms of instructions executed, the program behaves ''normally''. As a result, these attacks are exceedingly difficult to detect. Pointer tainting is considered one of the only methods for detecting them in unmodified binaries. Unfortunately, almost all of the incarnations of pointer tainting are flawed.
+Pointer tainting could be defined as a kind of dynamic information flow tracking which marks the origin of data by way of a taint bit in a shadow memory that is inaccessible to software. It has been used for two main purposes: detection of privacy-breaching malware (e.g., keyloggers), and detection of memory corruption attacks against non-control data (e.g., a buffer overflow that modifies a user’s privilege level). In both of these cases the attacker does not modify the control flow of the target program. Phrased differently, in terms of instructions executed, the program behaves ''normally''. As a result, these attacks are exceedingly difficult to detect.
 
 Pointer tainting is very popular because:
 \begin{itemize}
 	\item it can be applied to unmodified software without recompilation;
-	\item according to its advocates, it incurs hardly (if any) false positives
-	\item it is assumed to be one of the only (if not the only) reliable techniques capable of detecting both control-diverting and non-control-diverting attacks without requiring recompilation.
+	\item according to its advocates, it incurs hardly (if any) false positives;
+	\item it is assumed to be one of the only (if not the only) reliable techniques capable of detecting such attacks without requiring recompilation.
 \end{itemize}
 
-Conceptually is a simple process. We try to detect whether a new application \textit{X} is malicious or not, by running it in a system and analyzing it using pointer tainting. Sensitive data, such as keystrokes that are unrelated to \textit{X} (e.g., a password you type in when logging to a remote machine) are tagged tainted. If at some point, any byte in the address space of \textit{X} is tainted, it means that the sensitive data has leaked into \textit{X}, which should not happen. Thus, the program must be malicious and is probably a keylogger.
+Conceptually is a simple process. We try to detect whether a new application \textit{X} is malicious or not, by running it in a system and analyzing it using pointer tainting. Sensitive data, such as keystrokes that are unrelated to \textit{X} (e.g., a password typed in when logging to a remote machine) are tagged tainted. If at some point, any byte in the address space of \textit{X} is tainted, it means that the sensitive data has leaked into \textit{X}, which should not happen. Thus, the program must be malicious and is probably a keylogger.
 
 However, for privacy-breaching malware detection, the method is flawed.
 
@@ -61,6 +61,6 @@ y := 1
 z : = 42
 \end{lstlisting}
 
-If we do not compute control dependencies, you cannot determine control-flow based taint, and the overall analysis may undertaint. Unfortunately, pure dynamic taint analysis cannot compute control dependencies, thus cannot accurately determine control-flow-based taint. The reason is simple: reasoning about control dependencies requires reasoning about multiple paths, and dynamic analysis executes on a single path at a time.
+If we do not compute control dependencies, we cannot determine control-flow based taint, and the overall analysis may undertaint. Unfortunately, pure dynamic taint analysis cannot compute control dependencies, thus cannot accurately determine control-flow-based taint. The reason is simple: reasoning about control dependencies requires reasoning about multiple paths, and dynamic analysis executes on a single path at a time.
 
 Another thing that we would discover is whether sensible information, like user-provided passwords, flow to insecure output channel. Generally we want that any secret information does not flow to a public output channel, but we might be interested to allow only a specific channel to receive only a specific type of secret information, and we would discover every other violation: in brief, we want to specify declassification policies, but with dynamic analysis we can't, or it's very difficult to do so. Thus, in such cases, static analysis is required.

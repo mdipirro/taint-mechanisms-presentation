@@ -4,13 +4,11 @@
 		\includegraphics[scale=0.25]{controlflow}
 	\end{textblock*}
 	
-	\begin{textblock*}{8cm}(4.5cm,2cm)
+	\begin{textblock*}{8cm}(4.5cm,1.7cm)
 		\begin{itemize}
-			\item \textbf{Sanitization problem} 
+			\item \textbf{Sanitization problem} \\
 					\only<2->{
-						\begin{center}
-							{\color[rgb]{1,1,1} \texttt{b := a $\oplus$ a}}
-						\end{center}
+							{\hspace{1cm}\color[rgb]{1,1,1} \texttt{b := a $\oplus$ a}}
 					}
 			\item<3-> Pure dynamic taint analysis considers \textbf{data flows}... \newline
 		  ...but it ignores \textbf{control-flows} \newline
@@ -18,7 +16,8 @@
 						\texttt{x = get\_input(src)} \\
 						\texttt{if x == 1 then } \\
 							{\hspace{0.7cm}\texttt{y = 1}\\}
-						\texttt{z = 42}
+						\texttt{...} \\
+						\texttt{goto y}
 					}
 			\item<4-> What about different security policies for different I/O channels? \newline
 			\only<5->{$\rightarrow$ \textbf{Static analysis}}

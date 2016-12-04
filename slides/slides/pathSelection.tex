@@ -3,29 +3,9 @@
 	\begin{itemize}
 		\item For each conditional jump we must decide what path to follow first
 		\begin{itemize}
-			\item But some path may never terminate \\
-			\only<2->{
-				\centering{\color[rgb]{1,1,1}\texttt{while ($3^{n}$ + $4^{n}$ == $5^{n}$) $\{$n++; ...$\}$}}
-			}
+			\item But some path may never terminate
 		\end{itemize}
 		\item Exponential blowup due to branches
 	\end{itemize}
-	\only<-2>{
-		\centering\includegraphics[scale=0.85]{tree}
-	}
-	\only<3->{
-		\begin{itemize}
-			\item Solutions
-			\begin{itemize}
-				\item \textbf{Path Selection Heuristics}
-				\begin{itemize}
-					\item Concolic Testing
-					\item Depth-First or Random Search
-				\end{itemize}
-				\item More and faster \textbf{hardware}
-				\item Identify \textbf{redundancies} between formulas
-				\item Identify \textbf{independent subformulas}
-			\end{itemize}
-		\end{itemize}
-	}
+	\centering\includegraphics[scale=0.85]{tree}
 \end{frame}

@@ -1,7 +1,5 @@
 \section{Forward Symbolic Execution} 
-Forward symbolic execution allows us to reason about the behavior of a program on many different inputs at one time by building a logical formula that represents a program execution. Thus, reasoning about the behavior of the program can be reduced to the domain of logic.
-
-One of the advantages of forward symbolic execution is that it can be used to reason about more than one input at once. For instance, in this program, only one out of $2^{32}$ possible inputs will cause the program to take the true branch. Forward symbolic execution can reason about the program by considering two different input classes — inputs that take the true branch, and those that take the false branch.
+One of the advantages of forward symbolic execution is that it can be used to reason about more than one input at once. For instance, in this program, only one the value 19 will cause the program to take the true branch. Forward symbolic execution can reason about the program by considering two different input classes — inputs that take the true branch, and those that take the false branch.
 
 \begin{lstlisting}
 x := 2 * get_input(src)
@@ -12,7 +10,7 @@ if x - 5 == 14 then goto 3 else goto 4
 
 The primary difference between forward symbolic execution and regular execution is that when \texttt{get\_input(·)} is evaluated symbolically, it returns a symbol instead of a concrete value. When a new symbol is first returned, there are no constraints on its value; it represents any possible value. As a result, expressions involving symbols cannot be fully evaluated to a concrete value.
 
-Branches constrain the values of symbolic variables to the set of values that would execute the path. For example, in the program above, if the execution follows the \texttt{true} branch, then \texttt{x} must contain 19. Otherwise \texttt{x} contains a value which is not 19. Every \texttt{if then else} statement creates two partitions of the input domain. The strategy used for choosing paths can significantly impact the quality of the analysis.
+Branches constrain the values of symbolic variables to the set of values that would execute the path. For example, every \texttt{if then else} statement creates two partitions of the input domain.
 
 \subsection{Challenges and Opportunities}
 Unfortunately, by examining our formal definition of this intuition, we can find several instances where our analysis breaks down.
@@ -22,12 +20,7 @@ When forward symbolic execution encounters a branch, it must decide which branch
 
 We can think of a forward symbolic execution of an entire program as a tree in which every node represents a particular instance of the abstract machine. The analysis begins with only a root node in the tree. However, every time the analysis must fork, such as when a conditional jump is encountered, it adds as children all possible forked states to the current node. We can further explore any leaf node in the tree that has not terminated. 
 
-Thus, forward symbolic execution needs a strategy for choosing which state to explore next. This choice is important, because loops with symbolic conditions may never terminate. If an analysis tries to explore such a loop in a naive manner, it might never explore other branches in the state tree.
-
-\begin{center}\texttt{while ($3^{n}$ + $4^{n}$ == $5^{n}$) $\{$n++; ...$\}$}\end{center}
-
-
-Exploring all paths in this program is infeasible. Although we know mathematically there is no satisfying answer to the branch guard other than 2, the forward symbolic execution algorithm does not.
+Thus, forward symbolic execution needs a strategy for choosing which state to explore next. This choice is important, because loops with symbolic conditions may never terminate. 
 
 Furthermore, a straightforward implementation of forward symbolic execution will lead to:
 \begin{itemize}
@@ -39,8 +32,8 @@ In practice, we can mitigate these problems in a number of ways:
 	\item \textbf{Path selection heuristics}:
 	\begin{itemize}
 		\item \textbf{Depth-First Search}: DFS employs the standard depth-first search algorithm on the state tree. The primary disadvantage of DFS is that it can get stuck in nonterminating loops with symbolic conditions if no maximum depth is specified. If this happens, then no other branches will be explored and code coverage will suffer;
-		\item \textbf{Random Paths}: this kinds of strategies traverse the state tree from the root until they reach a leaf node. The random path strategy gives a higher weight to shallow states. This prevents executions from getting stuck in loops with symbolic conditions;
-		\item \textbf{Concolic Testing}: concolic testing uses concrete execution to produce a trace of a program execution. Forward symbolic execution then follows the same path as the concrete execution. The analysis can optionally generate concrete inputs that will force the execution down another path by choosing a conditional and negating the constraints corresponding to that conditional statement.
+		\item \textbf{Random Paths}: this kinds of strategies traverse the state tree from the root until they reach a leaf node. The random path strategy gives a higher weight to shallow states;
+		\item \textbf{Concolic Testing}: concolic testing uses concrete execution to produce a trace of a program execution. Forward symbolic execution then follows the same path as the concrete execution.
 	\end{itemize}
 	\item \textbf{Use more and faster hardware}. Exploring multiple paths and solving formulas for each path is inherently parallelizable;
 	\item \textbf{Identify independent subformulas}. By identifying logically independent subformulas and analyze them using SMT solvers;

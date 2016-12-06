@@ -3,8 +3,10 @@
 	\begin{itemize}
 		\item We can reason about the behavior of a program using the logic...
 		\item ... and it is \textbf{conceptually} a very simple process \newline
-		{\color{white} \texttt{x = 2 * get\_input(src)\\if x - 5 == 14 then goto 3 else goto 4\\// line 3: catastrophic failure\\// line 4: normal behavior
-			}
+		{\color{white} \texttt{x = 2 * get\_input(src)}\\
+			\texttt{if x - 5 == 14 } \\ 
+				{\hspace{0.7cm}\texttt{// catastrophic failure}\\}
+			\texttt{// normal behavior}
 		}
 	\only<2->{
 		\item \texttt{get\_input(src)} now returns a \textbf{symbol} instead of a concrete value
